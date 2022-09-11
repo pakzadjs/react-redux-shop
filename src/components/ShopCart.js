@@ -1,18 +1,19 @@
-import React, { useContext } from 'react';
+import React from 'react';
 import { Link } from 'react-router-dom';
+import { useSelector, useDispatch } from 'react-redux';
 
 // Components
 import Cart from './shared/Cart';
 
-// Context
-import { CartContext } from '../context/CartContextProvider';
-
 // Style
 import styles from "./ShopCart.module.css";
 
+// Actions 
+import { clear, checkout} from "../redux/cart/cartAction"
 const ShopCart = () => {
 
-    const { state, dispatch } = useContext(CartContext);
+    const state = useSelector(state => state.cartState);
+    const dispatch = useDispatch()
 
     return (
         <div className={styles.container}>
@@ -25,8 +26,8 @@ const ShopCart = () => {
                         <p><span>Total Items:</span> {state.itemsCounter}</p>
                         <p><span>Total Payments:</span> {state.total} $</p>
                         <div className={styles.buttonContainer}>
-                            <button className={styles.clear} onClick={() => dispatch({type: "CLEAR"})}>Clear</button>
-                            <button className={styles.checkout} onClick={() => dispatch({type: "CHECKOUT"})}>Checkout</button>
+                            <button className={styles.clear} onClick={() => dispatch(clear())}>Clear</button>
+                            <button className={styles.checkout} onClick={() => dispatch(checkout())}>Checkout</button>
                         </div>
                     </div>
             }

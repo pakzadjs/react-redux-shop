@@ -1,33 +1,30 @@
 import React, { useContext } from 'react';
 import { Link, useParams } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 // import axios from 'axios';
 
-// Context
-import { ProductsContext } from '../context/ProductContextProvider';
-
 // Style
-import styles from "./ProductDetails.module.css";
+import styles from './ProductDetails.module.css';
 
 const ProductDetails = (props) => {
-
     const params = useParams();
     const id = params.id;
-    const data = useContext(ProductsContext);
+    const data = useSelector((state) => state.productsState.products);
     const product = data[id - 1];
-    const {image, title, description, price, category} = product;
+    const { image, title, description, price, category } = product;
 
-   // const [products, setProducts] = useState([]);
+    // const [products, setProducts] = useState([]);
 
-   // useEffect(() => {
-   //     const fetchAPI = async () => {
-   //         setProducts(await axios.get(`https://fakestoreapi.com/products/${id}`));
-   //     }
+    // useEffect(() => {
+    //     const fetchAPI = async () => {
+    //         setProducts(await axios.get(`https://fakestoreapi.com/products/${id}`));
+    //     }
 
-   //     fetchAPI();
-   // }, []);
+    //     fetchAPI();
+    // }, []);
 
-   // const {image, title, description, category, price} = products.data;
-   // console.log(products);
+    // const {image, title, description, category, price} = products.data;
+    // console.log(products);
 
     return (
         <div className={styles.container}>
@@ -35,7 +32,9 @@ const ProductDetails = (props) => {
             <div className={styles.textContainer}>
                 <h3>{title}</h3>
                 <p className={styles.description}>{description}</p>
-                <p className={styles.category}><span>Category:</span> {category}</p>
+                <p className={styles.category}>
+                    <span>Category:</span> {category}
+                </p>
                 <div className={styles.buttonContainer}>
                     <span className={styles.price}>{price} $</span>
                     <Link to="/products">Back to Shop</Link>
